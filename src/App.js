@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import * as queryString from "query-string";
+
+import "./App.css";
+import env from './env'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  useEffect(() => {
+    generateAndSetUrl();
+  }, [])
+
+  const [url, setUrl] = useState(null);
+
+  const generateAndSetUrl = () => {
+    const stringifiedParams = queryString.stringify({
+      client_id: env.CLIENT_ID,
+      redirect_uri: "http://localhost:3000/auth/google",
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile",
+      ].join(" "), // space seperated string
+      response_type: "code",
+      access_type: "offline",
+      prompt: "consent",
+    });
+  
+    const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`;
+
+    setUrl(googleLoginUrl);
+  }
+
+  return <div className="App">
+    <a href={url}>Sign In with Google</a>
+  </div>;
 }
 
 export default App;
