@@ -11,6 +11,7 @@ const Routing = () => {
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/auth/google" component={Auth} />
+        <Route path="/auth/facebook" component={Auth} />
       </Switch>
     </Router>
   );
