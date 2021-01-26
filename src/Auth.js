@@ -14,8 +14,11 @@ const Auth = () => {
     const fetUserInfo = async () => {
       if (code) {
         const { data } = await axios({
-          url: `http://localhost:5000/user/signin?method=${signInMethod}&code=${code}`,
-          method: "GET",
+          url: `http://localhost:8000/auth/signup/social?method=${signInMethod}&code=${code}`,
+          method: "POST",
+          data: {
+            tokenId: "6010485892f3e91fb42d1082",
+          },
         });
         console.log(data);
         setUserInfo(data);
