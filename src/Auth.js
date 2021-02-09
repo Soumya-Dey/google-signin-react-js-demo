@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import * as queryString from "query-string";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import * as queryString from 'query-string';
+import axios from 'axios';
 
 const Auth = () => {
   const [code, setCode] = useState(null);
   const [error, setError] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
-  const [signInMethod, setSignInMethod] = useState("password");
+  const [signInMethod, setSignInMethod] = useState('password');
 
   useEffect(() => {
     getCodeFromUrl();
@@ -14,11 +14,11 @@ const Auth = () => {
     const fetUserInfo = async () => {
       if (code) {
         const { data } = await axios({
-          url: `http://localhost:8000/auth/signup/social?method=${signInMethod}&code=${code}`,
-          method: "POST",
-          data: {
-            tokenId: "6010485892f3e91fb42d1082",
-          },
+          url: `http://localhost:8000/auth/user/social/601c13682a018714f4d63bdb?method=${signInMethod}&code=${code}`,
+          method: 'POST',
+          // data: {
+          //   tokenId: '601ff59ee760c329dc416b62',
+          // },
         });
         console.log(data);
         setUserInfo(data);
@@ -35,11 +35,11 @@ const Auth = () => {
     } else {
       setCode(urlParams.code);
 
-      if (window.location.pathname === "/auth/google")
-        setSignInMethod("google");
-      else if (window.location.pathname === "/auth/facebook")
-        setSignInMethod("facebook");
-      else setSignInMethod("password");
+      if (window.location.pathname === '/auth/google')
+        setSignInMethod('google');
+      else if (window.location.pathname === '/auth/facebook')
+        setSignInMethod('facebook');
+      else setSignInMethod('password');
     }
   };
 
@@ -53,9 +53,9 @@ const Auth = () => {
   }
 
   return (
-    <div className="App">
-      <a className="bk-btn" href="/">
-        {"<"} Back
+    <div className='App'>
+      <a className='bk-btn' href='/'>
+        {'<'} Back
       </a>
       {error && <div>{error}</div>}
       {userInfo ? <div>{userInfoDOM}</div> : <div>Loading...</div>}

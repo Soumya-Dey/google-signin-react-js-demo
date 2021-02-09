@@ -15,6 +15,7 @@ function App() {
   const generateAndSetUrl = () => {
     const paramsForGoogle = queryString.stringify({
       client_id: env.GOOGLE_CLIENT_ID,
+      state: "http://subdomain.localhost:3000/auth/google",
       redirect_uri: "http://localhost:3000/auth/google",
       scope: [
         "https://www.googleapis.com/auth/userinfo.email",
