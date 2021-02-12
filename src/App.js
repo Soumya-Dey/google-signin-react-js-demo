@@ -28,6 +28,7 @@ function App() {
 
     const paramsForFacebook = queryString.stringify({
       client_id: env.FACEBOOK_APP_ID,
+      state: "http://subdomain.localhost:3000/auth/google",
       redirect_uri: "http://localhost:3000/auth/facebook",
       scope: ['email', 'user_friends'].join(','), // comma seperated string
       response_type: 'code',
