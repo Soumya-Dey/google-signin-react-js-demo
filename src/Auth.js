@@ -11,11 +11,11 @@ const Auth = () => {
   useEffect(() => {
     getCodeFromUrl();
 
-    const fetUserInfo = async () => {
+    const connectPage = async () => {
       if (code) {
         const { data } = await axios({
-          url: `http://localhost:8000/auth/user/social/601c13682a018714f4d63bdb?method=${signInMethod}&code=${code}`,
-          method: 'POST',
+          url: `http://localhost:8000/user/signin?method=${signInMethod}&code=${code}`,
+          method: 'GET',
           // data: {
           //   tokenId: '601ff59ee760c329dc416b62',
           // },
@@ -24,7 +24,7 @@ const Auth = () => {
         setUserInfo(data);
       }
     };
-    fetUserInfo();
+    connectPage();
   }, [code, signInMethod]);
 
   const getCodeFromUrl = () => {
