@@ -14,8 +14,10 @@ const Auth = () => {
     const connectPage = async () => {
       if (code) {
         const { data } = await axios({
-          url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
-          method: 'post',
+          // url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
+          url: `http://localhost:7001/user/signin?method=${signInMethod}&code=${code}`,
+          // method: 'post',
+          method: 'get',
           headers: {
             'auth-token':
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDIyYWQzYjUxZjYyMTNhZmNmM2EyZDkiLCJjbGllbnRJZCI6IjYwMWMxMzY4MmEwMTg3MTRmNGQ2M2JkYiIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2MTUyMTkwMTcsImV4cCI6MTYxNjA4MzAxN30.8lD7hCRdsq2bIMmtsuynUx_mIMxnc7nhPol02x_VDB4',

@@ -52,7 +52,7 @@ function App() {
   }
 
   return <div className="App">
-    {/* <a className="gl-signin" href={glUrl}>Sign In with Google</a> */}
+    <a className="gl-signin" href={glUrl}>Sign In with Google</a>
     <a className="fb-signin" href={fbUrl}>Connect Facebook Page</a>
   </div>;
 }
