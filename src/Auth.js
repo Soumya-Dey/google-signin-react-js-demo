@@ -5,29 +5,38 @@ import axios from 'axios';
 const Auth = () => {
   const [code, setCode] = useState(null);
   const [error, setError] = useState(null);
-  const [userInfo, setUserInfo] = useState(null);
+  const [info, setInfo] = useState([]);
   const [signInMethod, setSignInMethod] = useState('password');
+
+  const setData = (data) => {
+    const fbPages = data.company.facebookPages;
+    setInfo(fbPages);
+  };
 
   useEffect(() => {
     getCodeFromUrl();
 
     const connectPage = async () => {
       if (code) {
-        const { data } = await axios({
-          // url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
-          url: `http://localhost:7001/user/signin?method=${signInMethod}&code=${code}`,
-          // method: 'post',
-          method: 'get',
-          headers: {
-            'auth-token':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDIyYWQzYjUxZjYyMTNhZmNmM2EyZDkiLCJjbGllbnRJZCI6IjYwMWMxMzY4MmEwMTg3MTRmNGQ2M2JkYiIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2MTUyMTkwMTcsImV4cCI6MTYxNjA4MzAxN30.8lD7hCRdsq2bIMmtsuynUx_mIMxnc7nhPol02x_VDB4',
-          },
-          // data: {
-          //   tokenId: '601ff59ee760c329dc416b62',
-          // },
-        });
-        console.log(data);
-        setUserInfo(data);
+        try {
+          const { data } = await axios({
+            url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
+            // url: `http://localhost:7001/auth/login/social/607a9db817566018ec5c6f3b?method=${signInMethod}&code=${code}`,
+            method: 'post',
+            // method: 'get',
+            headers: {
+              'auth-token':
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDhmZDM3ZTE0MjFlNDA3NDg0MTIyMDYiLCJjbGllbnRJZCI6IjYwN2E5ZGI4MTc1NjYwMThlYzVjNmYzYiIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2MjAwMzg4NjMsImV4cCI6MTYyMDkwMjg2M30.__3m5LlO5_HnSnQRGMeyma9CazoBE-fCI3fJx3hSeLo',
+            },
+            // data: {
+            //   tokenId: '601ff59ee760c329dc416b62',
+            // },
+          });
+
+          setData(data);
+        } catch (error) {
+          setError(error.response.data.errors[0].msg);
+        }
       }
     };
     connectPage();
@@ -49,22 +58,22 @@ const Auth = () => {
     }
   };
 
-  const userInfoDOM = [];
-  for (const name in userInfo) {
-    userInfoDOM.push(
-      <p key={name}>
-        <b>{name}:</b> {userInfo[name].toString()}
-      </p>
-    );
-  }
-
   return (
     <div className='App'>
       <a className='bk-btn' href='/'>
-        {'<'} Back
+        Go Back
       </a>
       {error && <div>{error}</div>}
-      {userInfo ? <div>{userInfoDOM}</div> : <div>Loading...</div>}
+      {info.length ? (
+        <div>
+          Pages:
+          {info.map((item, i) => (
+            <p key={i}>{item.name || 'Unknown page'}</p>
+          ))}
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

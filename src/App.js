@@ -39,10 +39,20 @@ function App() {
       client_id: env.FACEBOOK_APP_ID,
       state: "http://subdomain.localhost:3000/auth/google",
       redirect_uri: "http://localhost:3000/auth/facebook",
-      scope: ['user_posts', 'pages_show_list', 'pages_messaging_subscriptions', 'pages_manage_metadata', 'pages_read_engagement', 'pages_manage_posts', 'public_profile'].join(','), // comma seperated string
+      scope: [
+        'public_profile', 
+        'email',
+        'pages_show_list', 
+        'pages_manage_metadata', 
+        'pages_read_user_content', 
+        'pages_manage_engagement', 
+        'pages_manage_posts', 
+        'pages_read_engagement'
+      ].join(','), // comma seperated string
       response_type: 'code',
       auth_type: 'rerequest',
     });
+    console.log(paramsForFacebook);
     
     const googleLoginUrl = `https://accounts.google.com/o/oauth2/v2/auth?${paramsForGoogle}`;
     const facebookLoginUrl = `https://www.facebook.com/v9.0/dialog/oauth?${paramsForFacebook}`;
