@@ -20,7 +20,8 @@ const Auth = () => {
       if (code) {
         try {
           const { data } = await axios({
-            url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
+            url: `http://localhost:7001/channel/facebook/access?method=${signInMethod}&code=${code}`,
+            // url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
             // url: `http://localhost:7001/auth/login/social/607a9db817566018ec5c6f3b?method=${signInMethod}&code=${code}`,
             method: 'post',
             // method: 'get',
@@ -58,6 +59,31 @@ const Auth = () => {
     }
   };
 
+  const connect = async () => {
+    try {
+      const { data } = await axios({
+        // url: `http://localhost:7001/channel/facebook/access?method=${signInMethod}&code=${code}`,
+        url: `http://localhost:7001/channel/facebook/disconnect?method=${signInMethod}&code=${code}`,
+        // url: `http://localhost:7001/auth/login/social/607a9db817566018ec5c6f3b?method=${signInMethod}&code=${code}`,
+        method: 'post',
+        // method: 'get',
+        headers: {
+          'auth-token':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDhmZDM3ZTE0MjFlNDA3NDg0MTIyMDYiLCJjbGllbnRJZCI6IjYwN2E5ZGI4MTc1NjYwMThlYzVjNmYzYiIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2MjAwMzg4NjMsImV4cCI6MTYyMDkwMjg2M30.__3m5LlO5_HnSnQRGMeyma9CazoBE-fCI3fJx3hSeLo',
+        },
+        data: {
+          pageIds: ['365099807847098'],
+        },
+      });
+
+      console.log(data);
+
+      setData(data);
+    } catch (error) {
+      setError(error.response.data.errors[0].msg);
+    }
+  };
+
   return (
     <div className='App'>
       <a className='bk-btn' href='/'>
@@ -70,6 +96,9 @@ const Auth = () => {
           {info.map((item, i) => (
             <p key={i}>{item.name || 'Unknown page'}</p>
           ))}
+          <button className='bk-btn' onClick={connect}>
+            connect
+          </button>
         </div>
       ) : (
         <div>Loading...</div>
