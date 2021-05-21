@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import * as queryString from "query-string";
+import axios from 'axios';
 
 import "./App.css";
 import env from './env'
@@ -11,8 +12,9 @@ function App() {
 
   const [glUrl, setGlUrl] = useState(null);
   const [fbUrl, setFbUrl] = useState(null);
+  const [twUrl, setTwUrl] = useState(null);
 
-  const generateAndSetUrl = () => {
+  const generateAndSetUrl = async () => {
     const paramsForGoogle = queryString.stringify({
       client_id: env.GOOGLE_CLIENT_ID,
       state: "http://subdomain.localhost:3000/auth/google",
@@ -58,11 +60,18 @@ function App() {
 
     setGlUrl(googleLoginUrl);
     setFbUrl(facebookLoginUrl);
+
+    const {data: twitterLoginUrl} = await axios({
+      url: 'http://localhost:7001/channel/twitter/url',
+      method: 'get',
+    });
+    setTwUrl(twitterLoginUrl.authorizeUrl)
   }
 
   return <div className="App">
     <a className="gl-signin" href={glUrl}>Sign In with Google</a>
     <a className="fb-signin" href={fbUrl}>Connect Facebook Page</a>
+    <a className="tw-signin" href={twUrl}>Sign In with Twitter</a>
   </div>;
 }
 
