@@ -64,6 +64,10 @@ function App() {
     const {data: twitterLoginUrl} = await axios({
       url: 'http://localhost:7001/channel/twitter/url',
       method: 'get',
+      headers: {
+        'auth-token':
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDdhOWRiYjE3NTY2MDE4ZWM1YzZmNDkiLCJjbGllbnRJZCI6IjYwN2E5ZGI4MTc1NjYwMThlYzVjNmYzYiIsInJvbGUiOiJvd25lciJ9LCJpYXQiOjE2MjE3ODc4NDgsImV4cCI6MTYyMjY1MTg0OH0.AcXzVZoWau1lm-tKVn6cr9SX8XIOoAhMjsZQ0JnWtjk',
+      },
     });
     setTwUrl(twitterLoginUrl.authorizeUrl)
   }

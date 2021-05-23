@@ -27,13 +27,13 @@ const Auth = () => {
             // url: `http://localhost:7001/channel/facebook/access?method=${signInMethod}&code=${code}`,
             // url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
             // url: `http://localhost:7001/auth/login/social/607a9db817566018ec5c6f3b?method=${signInMethod}&code=${code}`,
-            url: `http://localhost:7001/channel/twitter/access?oauth_token=${token}&oauth_verifier=${verifier}`,
-            // method: 'post',
-            method: 'get',
-            // headers: {
-            //   'auth-token':
-            //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDhmZDM3ZTE0MjFlNDA3NDg0MTIyMDYiLCJjbGllbnRJZCI6IjYwN2E5ZGI4MTc1NjYwMThlYzVjNmYzYiIsInJvbGUiOiJhZG1pbiJ9LCJpYXQiOjE2MjAwMzg4NjMsImV4cCI6MTYyMDkwMjg2M30.__3m5LlO5_HnSnQRGMeyma9CazoBE-fCI3fJx3hSeLo',
-            // },
+            url: `http://localhost:7001/channel/twitter/connect?oauth_token=${token}&oauth_verifier=${verifier}`,
+            method: 'post',
+            // method: 'get',
+            headers: {
+              'auth-token':
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwZXJzb24iOnsiaWQiOiI2MDdhOWRiYjE3NTY2MDE4ZWM1YzZmNDkiLCJjbGllbnRJZCI6IjYwN2E5ZGI4MTc1NjYwMThlYzVjNmYzYiIsInJvbGUiOiJvd25lciJ9LCJpYXQiOjE2MjE3ODc4NDgsImV4cCI6MTYyMjY1MTg0OH0.AcXzVZoWau1lm-tKVn6cr9SX8XIOoAhMjsZQ0JnWtjk',
+            },
             // data: {
             //   tokenId: '601ff59ee760c329dc416b62',
             // },
