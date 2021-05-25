@@ -61,8 +61,12 @@ function App() {
     setGlUrl(googleLoginUrl);
     setFbUrl(facebookLoginUrl);
 
+    const authToken = '3428735825';
+    const subdomainUrl = 'https://abc.example.com'
+
+    // send query params separately
     const {data: twitterLoginUrl} = await axios({
-      url: 'http://localhost:7001/channel/twitter/url',
+      url: `http://localhost:7001/channel/twitter/url?authToken=${authToken}&subdomainUrl=${subdomainUrl}`,
       method: 'get',
       headers: {
         'auth-token':

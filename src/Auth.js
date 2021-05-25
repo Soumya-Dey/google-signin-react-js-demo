@@ -27,9 +27,9 @@ const Auth = () => {
             // url: `http://localhost:7001/channel/facebook/access?method=${signInMethod}&code=${code}`,
             // url: `http://localhost:7001/channel/facebook/connect?method=${signInMethod}&code=${code}`,
             // url: `http://localhost:7001/auth/login/social/607a9db817566018ec5c6f3b?method=${signInMethod}&code=${code}`,
-            url: `http://localhost:7001/channel/twitter/disconnect?oauth_token=${token}&oauth_verifier=${verifier}`,
-            method: 'delete',
-            // method: 'post',
+            url: `http://localhost:7001/channel/twitter/connect?oauth_token=${token}&oauth_verifier=${verifier}`,
+            // method: 'delete',
+            method: 'post',
             // method: 'get',
             headers: {
               'auth-token':
@@ -38,9 +38,9 @@ const Auth = () => {
             // data: {
             //   tokenId: '601ff59ee760c329dc416b62',
             // },
-            data: {
-              userIds: ['2791373863'],
-            },
+            // data: {
+            //   userIds: ['2791373863'],
+            // },
           });
           console.log(data);
 
@@ -63,6 +63,7 @@ const Auth = () => {
       setCode(urlParams.code);
       setToken(urlParams.oauth_token);
       setVerifier(urlParams.oauth_verifier);
+      console.log('urlParams: ', urlParams);
 
       if (window.location.pathname === '/auth/google')
         setSignInMethod('google');
